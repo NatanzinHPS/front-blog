@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Eye, EyeOff, LogIn } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext';
-import { authService } from '../services/api';
-import { loginSchema } from '../utils/validationSchemas';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Eye, EyeOff, LogIn } from "lucide-react";
+import { useAuth } from "../contexts/AuthContext";
+import { authService } from "../services/api";
+import { loginSchema } from "../utils/validationSchemas";
 
 interface LoginFormValues {
   email: string;
@@ -15,29 +15,28 @@ interface LoginFormValues {
 const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  
+  const [error, setError] = useState("");
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const initialValues: LoginFormValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   const handleSubmit = async (values: LoginFormValues) => {
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
       const response = await authService.login(values);
-      
+
       login(response.token, response.user);
-      navigate('/');
+      navigate("/");
     } catch (err: any) {
       setError(
-        err.response?.data?.message || 
-        'Erro ao fazer login. Tente novamente.'
+        err.response?.data?.message || "Erro ao fazer login. Tente novamente."
       );
     } finally {
       setIsLoading(false);
@@ -71,7 +70,10 @@ const Login: React.FC = () => {
 
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Email
                   </label>
                   <Field
@@ -82,18 +84,25 @@ const Login: React.FC = () => {
                     className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                     placeholder="Digite seu email"
                   />
-                  <ErrorMessage name="email" component="div" className="mt-1 text-sm text-red-600" />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="mt-1 text-sm text-red-600"
+                  />
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Senha
                   </label>
                   <div className="mt-1 relative">
                     <Field
                       id="password"
                       name="password"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       autoComplete="current-password"
                       className="appearance-none relative block w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                       placeholder="Digite sua senha"
@@ -110,15 +119,16 @@ const Login: React.FC = () => {
                       )}
                     </button>
                   </div>
-                  <ErrorMessage name="password" component="div" className="mt-1 text-sm text-red-600" />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="mt-1 text-sm text-red-600"
+                  />
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-black"
-                >
+                <Link to="/forgot-password" className="text-sm text-black">
                   Esqueceu sua senha?
                 </Link>
               </div>
@@ -129,13 +139,13 @@ const Login: React.FC = () => {
                   disabled={isSubmitting || isLoading}
                   className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gray-600 hover:bg-gary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? 'Entrando...' : 'Entrar'}
+                  {isLoading ? "Entrando..." : "Entrar"}
                 </button>
               </div>
 
               <div className="text-center">
                 <span className="text-sm text-gray-600">
-                  Não tem uma conta?{' '}
+                  Não tem uma conta?{" "}
                   <Link
                     to="/register"
                     className="font-medium text-gray-700 hover:text-black"

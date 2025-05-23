@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Mail, CheckCircle, ArrowLeft } from 'lucide-react';
-import { authService } from '../services/api';
-import { forgotPasswordSchema } from '../utils/validationSchemas';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Mail, CheckCircle, ArrowLeft } from "lucide-react";
+import { authService } from "../services/api";
+import { forgotPasswordSchema } from "../utils/validationSchemas";
 
 interface ForgotPasswordFormValues {
   email: string;
@@ -12,24 +12,24 @@ interface ForgotPasswordFormValues {
 
 const ForgotPassword: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  
+
   const initialValues: ForgotPasswordFormValues = {
-    email: '',
+    email: "",
   };
 
   const handleSubmit = async (values: ForgotPasswordFormValues) => {
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
       await authService.forgotPassword(values);
       setSuccess(true);
     } catch (err: any) {
       setError(
-        err.response?.data?.message || 
-        'Erro ao enviar email de recuperação. Tente novamente.'
+        err.response?.data?.message ||
+          "Erro ao enviar email de recuperação. Tente novamente."
       );
     } finally {
       setIsLoading(false);
@@ -48,7 +48,8 @@ const ForgotPassword: React.FC = () => {
               Email enviado!
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Verifique sua caixa de entrada e siga as instruções para redefinir sua senha.
+              Verifique sua caixa de entrada e siga as instruções para redefinir
+              sua senha.
             </p>
             <div className="mt-6">
               <Link
@@ -94,7 +95,10 @@ const ForgotPassword: React.FC = () => {
               )}
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Email
                 </label>
                 <Field
@@ -105,7 +109,11 @@ const ForgotPassword: React.FC = () => {
                   className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="Digite seu email"
                 />
-                <ErrorMessage name="email" component="div" className="mt-1 text-sm text-red-600" />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="mt-1 text-sm text-red-600"
+                />
               </div>
 
               <div>
@@ -114,7 +122,7 @@ const ForgotPassword: React.FC = () => {
                   disabled={isSubmitting || isLoading}
                   className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? 'Enviando...' : 'Enviar email de recuperação'}
+                  {isLoading ? "Enviando..." : "Enviar email de recuperação"}
                 </button>
               </div>
 

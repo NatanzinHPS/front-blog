@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Eye, EyeOff, UserPlus, CheckCircle } from 'lucide-react';
-import { authService } from '../services/api';
-import { registerSchema } from '../utils/validationSchemas';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Eye, EyeOff, UserPlus, CheckCircle } from "lucide-react";
+import { authService } from "../services/api";
+import { registerSchema } from "../utils/validationSchemas";
 
 interface RegisterFormValues {
   name: string;
@@ -16,21 +17,21 @@ const Register: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
-  
+
   const navigate = useNavigate();
 
   const initialValues: RegisterFormValues = {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   };
 
   const handleSubmit = async (values: RegisterFormValues) => {
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
       await authService.register({
@@ -38,15 +39,14 @@ const Register: React.FC = () => {
         email: values.email,
         password: values.password,
       });
-      
+
       setSuccess(true);
       setTimeout(() => {
-        navigate('/login');
+        navigate("/login");
       }, 2000);
     } catch (err: any) {
       setError(
-        err.response?.data?.message || 
-        'Erro ao criar conta. Tente novamente.'
+        err.response?.data?.message || "Erro ao criar conta. Tente novamente."
       );
     } finally {
       setIsLoading(false);
@@ -100,7 +100,10 @@ const Register: React.FC = () => {
 
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Nome completo
                   </label>
                   <Field
@@ -111,11 +114,18 @@ const Register: React.FC = () => {
                     className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                     placeholder="Digite seu nome completo"
                   />
-                  <ErrorMessage name="name" component="div" className="mt-1 text-sm text-red-600" />
+                  <ErrorMessage
+                    name="name"
+                    component="div"
+                    className="mt-1 text-sm text-red-600"
+                  />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Email
                   </label>
                   <Field
@@ -126,18 +136,25 @@ const Register: React.FC = () => {
                     className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                     placeholder="Digite seu email"
                   />
-                  <ErrorMessage name="email" component="div" className="mt-1 text-sm text-red-600" />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="mt-1 text-sm text-red-600"
+                  />
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Senha
                   </label>
                   <div className="mt-1 relative">
                     <Field
                       id="password"
                       name="password"
-                      type={showPassword ? 'text' : 'password'}
+                      type={showPassword ? "text" : "password"}
                       autoComplete="new-password"
                       className="appearance-none relative block w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                       placeholder="Digite sua senha"
@@ -154,18 +171,25 @@ const Register: React.FC = () => {
                       )}
                     </button>
                   </div>
-                  <ErrorMessage name="password" component="div" className="mt-1 text-sm text-red-600" />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="mt-1 text-sm text-red-600"
+                  />
                 </div>
 
                 <div>
-                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="confirmPassword"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Confirmar senha
                   </label>
                   <div className="mt-1 relative">
                     <Field
                       id="confirmPassword"
                       name="confirmPassword"
-                      type={showConfirmPassword ? 'text' : 'password'}
+                      type={showConfirmPassword ? "text" : "password"}
                       autoComplete="new-password"
                       className="appearance-none relative block w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                       placeholder="Confirme sua senha"
@@ -173,7 +197,9 @@ const Register: React.FC = () => {
                     <button
                       type="button"
                       className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
                     >
                       {showConfirmPassword ? (
                         <EyeOff className="h-4 w-4 text-gray-400" />
@@ -182,7 +208,11 @@ const Register: React.FC = () => {
                       )}
                     </button>
                   </div>
-                  <ErrorMessage name="confirmPassword" component="div" className="mt-1 text-sm text-red-600" />
+                  <ErrorMessage
+                    name="confirmPassword"
+                    component="div"
+                    className="mt-1 text-sm text-red-600"
+                  />
                 </div>
               </div>
 
@@ -192,13 +222,13 @@ const Register: React.FC = () => {
                   disabled={isSubmitting || isLoading}
                   className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? 'Criando conta...' : 'Criar conta'}
+                  {isLoading ? "Criando conta..." : "Criar conta"}
                 </button>
               </div>
 
               <div className="text-center">
                 <span className="text-sm text-gray-600">
-                  Já tem uma conta?{' '}
+                  Já tem uma conta?{" "}
                   <Link
                     to="/login"
                     className="font-medium text-gray-600 hover:text-black"
