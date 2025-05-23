@@ -22,3 +22,18 @@ export const registerSchema = Yup.object({
     .oneOf([Yup.ref('password')], 'Senhas devem coincidir')
     .required('Confirmação de senha é obrigatória'),
 });
+
+export const forgotPasswordSchema = Yup.object({
+  email: Yup.string()
+    .email('Email inválido')
+    .required('Email é obrigatório'),
+});
+
+export const resetPasswordSchema = Yup.object({
+  newPassword: Yup.string()
+    .min(6, 'Senha deve ter pelo menos 6 caracteres')
+    .required('Nova senha é obrigatória'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('newPassword')], 'Senhas devem coincidir')
+    .required('Confirmação de senha é obrigatória'),
+});
